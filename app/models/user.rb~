@@ -1,0 +1,13 @@
+class User < ActiveRecord::Base
+  helper_method :current_user
+has_secure_password
+validates_presence_of :password, :on => :create
+
+private
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+
+end
